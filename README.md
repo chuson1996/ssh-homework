@@ -17,5 +17,6 @@ _Answer to bullet point number 5_
 
 So far I have completed all the tasks I believe. However, there are a few things that can be polished like the design and animation transitions to improve the user experience.
 
+Currently token expiration is not handled properly. If I have time I would loook more into this issue. Perhaps something that stacks all the Unauthorized requests, get user to login, and call again those requests to return user to their previous state. This behavior is conveyed in (angular-http-auth)[https://github.com/witoldsz/angular-http-auth] but I haven't found a simliar one for react.
 
 
