@@ -27,7 +27,7 @@ export default class Home extends Component {
 
 		return (
 			<div className={styles.home}>
-				<Helmet title="Social Samurai"/>
+				<Helmet title="ssh-homework"/>
 				{ !loggedIn ? (
 						<h1>
 							Please <Link to={`/login`}>Login</Link>

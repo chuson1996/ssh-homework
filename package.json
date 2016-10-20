@@ -1,14 +1,14 @@
 {
-  "name": "social-samurai",
-  "description": "Social Samurai rocks people",
+  "name": "ssh-homework",
+  "description": "SSH Homework",
   "author": "Chu Hoang Son <chuson1996@gmail.com> (http://github.com/chuson1996)",
   "license": "MIT",
   "version": "0.9.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hield/SocialSamurai"
+    "url": "https://github.com/chuson1996/ssh-homework"
   },
-  "homepage": "https://github.com/Hield/SocialSamurai",
+  "homepage": "https://github.com/chuson1996/ssh-homework",
   "keywords": [
     "react",
     "isomorphic",

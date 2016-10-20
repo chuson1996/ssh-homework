@@ -7,5 +7,5 @@
 
 export Comment from './Comment/Comment';
 export LoginForm from './LoginForm/LoginForm';
-export RegisterForm from './RegisterForm/RegisterForm';
 export NavigationBar from './NavigationBar/NavigationBar';
+export CustomHighlightText from './CustomHighlightText/CustomHighlightText';

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import { IndexLink } from 'react-router';
+import { Link } from 'react-router';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
@@ -31,21 +31,21 @@ class NavigationBar extends React.Component {
 			<Navbar fixedTop>
 				<Navbar.Header>
 					<Navbar.Brand>
-						<IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
+						<Link to="/">
 							<span>{config.app.title}</span>
-						</IndexLink>
+						</Link>
 					</Navbar.Brand>
+					<Navbar.Toggle/>
+				</Navbar.Header>
+
+				<Navbar.Collapse>
 					{this.props.token && <Nav>
 						<LinkContainer to={'/documents'}>
 							<NavItem>Documents</NavItem>
 						</LinkContainer>
 					</Nav>}
-					<Navbar.Toggle/>
-				</Navbar.Header>
 
-				<Navbar.Collapse>
-
-					{this.props.token && <Nav pullRight>
+					{this.props.token && <Nav navbar pullRight>
 						<NavItem eventKey={1} onClick={this.handleLogout}>Logout</NavItem>
 					</Nav>}
 				</Navbar.Collapse>

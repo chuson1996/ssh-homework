@@ -5,6 +5,7 @@ import { load as loadDocuments,
 	isLoaded as areDocumentsLoaded } from 'redux/modules/documents';
 import Table from 'react-bootstrap/lib/Table';
 import {Link} from 'react-router';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
 	promise: ({store: {dispatch, getState}}) => {
@@ -32,6 +33,7 @@ export default class Documents extends Component {
 		const {documents} = this.props;
 		return (
 			<div>
+				<Helmet title="ssh-homework - Document List"/>
 				<h2>Documents</h2>
 				<Table striped bordered condensed hover>
 					<thead>
