@@ -20,7 +20,7 @@ import get from 'lodash/get';
 @connect(
 	(state) => ({
 		doc: state.document.data,
-		token: state.auth.data.token
+		token: get(state.auth.data, 'token')
 	}),
 	null
 )
@@ -38,11 +38,12 @@ export default class Document extends Component {
 		} = this.props;
 		let searchWords = get(this.state, 'keyword');
 		searchWords = searchWords ? [searchWords] : [];
+		const styles = require('./Document.scss');
 
 		return (
 			<div>
 				<input
-					className="form-control"
+					className={`${styles.keywordInput} form-control`}
 					name="keyword"
 					ref={(_elem) => this.keyword = _elem}
 					type="text"

@@ -1,6 +1,6 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
-import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
+// import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
 import {
 		App,
 		Home,
@@ -29,10 +29,11 @@ export default (store) => {
 	};
 
 	const isLoggedIn = (_store, nextState, action) => {
+		/* If the users are logged in, when they try to go the the home page, they will be redirected to the "documents" page */
 		const checkAuth = () => {
 			const { auth: { loaded }} = _store.getState();
 			if (loaded) {
-				action.replace('/');
+				action.replace('/documents');
 			}
 			action.next();
 		};
@@ -44,7 +45,7 @@ export default (store) => {
 		<Route path="/" component={App}>
 			{ /* Home (main) route */ }
 			<IndexRoute
-				// onEnter={combine([requireLogin])}
+				onEnter={combine([isLoggedIn])}
 				component={Home} />
 
 			<Route

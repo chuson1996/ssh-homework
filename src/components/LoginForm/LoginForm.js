@@ -29,7 +29,7 @@ export default class LoginForm extends Component {
 
 	handleSubmit = (values) => {
 		this.props.login(values).then(() => {
-			browserHistory.push('/');
+			browserHistory.push('/documents');
 		});
 	};
 
@@ -37,8 +37,7 @@ export default class LoginForm extends Component {
 		const {
 			handleSubmit,
 			pristine,
-			submitting,
-			form: formName,
+			submitting
 		} = this.props;
 
 		return (
@@ -58,7 +57,7 @@ export default class LoginForm extends Component {
 					</div>
 				</div>
 				<button className="btn btn-success" disabled={pristine || submitting}
-						type="submit">{formName}</button>
+						type="submit">Login</button>
 			</form>
 		);
 	}

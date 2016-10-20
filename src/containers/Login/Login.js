@@ -13,11 +13,13 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<Row>
-				<Col sm={6} smOffset={3} xs={12}>
-					<LoginForm formName="Login" />
-				</Col>
-			</Row>
+			<div>
+				<Row>
+					<Col sm={6} smOffset={3} xs={12}>
+						<LoginForm formName="Login" />
+					</Col>
+				</Row>
+			</div>
 		);
 	}
 }

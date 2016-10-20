@@ -31,22 +31,25 @@ export default class Documents extends Component {
 	render() {
 		const {documents} = this.props;
 		return (
-			<Table striped bordered condensed hover>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Name</th>
-						<th>Size</th>
-					</tr>
-				</thead>
-				<tbody>
-					{documents && documents.length && documents.map((doc) => (<tr key={doc.id}>
-						<td>{doc.id}</td>
-						<td><Link to={`/documents/${doc.id}`}>{doc.name}</Link></td>
-						<td>{doc.size}</td>
-					</tr>))}
-				</tbody>
-			</Table>
+			<div>
+				<h2>Documents</h2>
+				<Table striped bordered condensed hover>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Size</th>
+						</tr>
+					</thead>
+					<tbody>
+						{documents && !!documents.length && documents.map((doc) => (<tr key={doc.id}>
+							<td>{doc.id}</td>
+							<td><Link to={`/documents/${doc.id}`}>{doc.name}</Link></td>
+							<td>{doc.size}</td>
+						</tr>))}
+					</tbody>
+				</Table>
+			</div>
 		);
 	}
 }

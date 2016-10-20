@@ -8,6 +8,7 @@ import config from '../../config';
 import {browserHistory} from 'react-router';
 import {logout as _logout} from 'redux/modules/auth';
 import get from 'lodash/get';
+import {LinkContainer} from 'react-router-bootstrap';
 
 @connect(
 	state => ({token: get(state, 'auth.data.token')
@@ -22,7 +23,7 @@ class NavigationBar extends React.Component {
 
 	handleLogout = () => {
 		this.props.logout();
-		browserHistory.push('/login');
+		browserHistory.push('/');
 	};
 
 	render() {
@@ -34,6 +35,11 @@ class NavigationBar extends React.Component {
 							<span>{config.app.title}</span>
 						</IndexLink>
 					</Navbar.Brand>
+					{this.props.token && <Nav>
+						<LinkContainer to={'/documents'}>
+							<NavItem>Documents</NavItem>
+						</LinkContainer>
+					</Nav>}
 					<Navbar.Toggle/>
 				</Navbar.Header>
 
