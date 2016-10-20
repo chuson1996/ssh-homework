@@ -73,11 +73,11 @@ class Document extends Component {
 						placeholder="Search keyword" />
 					<button type="submit" className="btn btn-default">Search</button>
 				</form>
-				{ <CustomHighlightText
-						highlightClassName="text-danger"
-						text={doc}
-						searchWordsResult={searchResult || []} /> }
-				{/* Alternative way to do word searching without having to call the api */}
+				<CustomHighlightText
+					highlightClassName="text-danger"
+					text={doc}
+					searchWordsResult={searchResult || []} />
+				{/* Alternative way to do word searching without having to call the api. To see how this works, comment out line 76-79 and uncomment line 6, 81-84 */}
 				{/* <Highlighter
 					highlightClassName="text-danger"
 					searchWords={searchWords}
