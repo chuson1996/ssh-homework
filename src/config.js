@@ -9,20 +9,16 @@ const environment = {
 	}
 }[process.env.NODE_ENV || 'development'];
 
-const websiteUrl = (process.env.NODE_ENV === 'development') ?
-	(process.env.HOST || 'localhost') + ':' + (process.env.PORT || 3000) :
-	'http://chuson1996.herokuapp.com';
-
 module.exports = Object.assign({
 	host: process.env.HOST || 'localhost',
 	port: process.env.PORT,
 	apiHost: process.env.APIHOST || 'localhost',
 	apiPort: process.env.APIPORT,
 	app: {
-		title: 'SocialSamurai',
+		title: 'SSH Homework',
 		description: 'All the modern best practices in one example.',
 		head: {
-			titleTemplate: 'Social Samurai',
+			titleTemplate: 'SSH Homework',
 			meta: [
 				{name: 'description', content: 'All the modern best practices in one example.'},
 				{charset: 'utf-8'},
@@ -38,20 +34,5 @@ module.exports = Object.assign({
 				{property: 'og:image:height', content: '200'}
 			]
 		}
-	},
-	websiteUrl,
-	auth: {
-		facebook: {
-			clientId: '446558085519275',
-			clientSecret: 'bacc127ffc433bba8475459dd469334c'
-		},
-		quizlet: {
-			clientId: 'U9zGqgKByB',
-			clientSecret: 'gceUm37RfjkgeQw6nJuQKj',
-			redirectUri: websiteUrl + '/loginQuizletSuccess'
-		}
-	},
-	mongo: {
-		endpoint: process.env.MONGO_URI || 'mongodb://admin:admin@ds029456.mlab.com:29456/social-samurai'
 	}
 }, environment);

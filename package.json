@@ -33,7 +33,7 @@
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
     "test": "karma start",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch"
@@ -44,7 +44,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "start-prod-api": {
@@ -52,7 +52,7 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "production",
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "start-dev": {
@@ -60,8 +60,8 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIPORT": 3030
+        "PORT": 4000,
+        "APIPORT": 3000
       }
     },
     "start-dev-api": {
@@ -69,7 +69,7 @@
       "env": {
         "NODE_PATH": "./api",
         "NODE_ENV": "development",
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "watch-client": {
@@ -77,8 +77,8 @@
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src",
-        "PORT": 3000,
-        "APIPORT": 3030
+        "PORT": 4000,
+        "APIPORT": 3000
       }
     },
     "build": {
@@ -133,6 +133,7 @@
     "react-bootstrap": "^0.30.4",
     "react-dom": "^15.1.0",
     "react-helmet": "^2.2.0",
+    "react-highlight-words": "^0.5.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
     "react-router": "^2.8.0",

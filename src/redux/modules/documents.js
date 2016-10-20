@@ -1,10 +1,10 @@
-const LOAD = 'social-samurai/session/LOAD';
-const LOAD_SUCCESS = 'social-samurai/session/LOAD_SUCCESS';
-const LOAD_FAIL = 'social-samurai/session/LOAD_FAIL';
+// import config from '../../config';
+const LOAD = 'ssh-homework/documents/LOAD';
+const LOAD_SUCCESS = 'ssh-homework/documents/LOAD_SUCCESS';
+const LOAD_FAIL = 'ssh-homework/documents/LOAD_FAIL';
 
 const initialState = {
-	loaded: false,
-	saved: false
+	loaded: false
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action = {}) {
 				...state,
 				loading: false,
 				loaded: true,
-				data: action.result
+				data: action.result,
 			};
 		case LOAD_FAIL:
 			return {
@@ -34,12 +34,16 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-	return globalState.session && globalState.session.loaded;
+	return globalState.documents && globalState.documents.loaded;
 }
 
-export function load() {
+export function load(token) {
 	return {
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-		promise: (client) => client.get('/session')
+		promise: (client) => client.get('/documents', {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
 	};
 }

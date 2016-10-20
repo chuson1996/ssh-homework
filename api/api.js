@@ -1,86 +1,17 @@
 import express from 'express';
-import session from 'express-session';
-import bodyParser from 'body-parser';
-import config from '../src/config';
 import http from 'http';
 import SocketIo from 'socket.io';
-import passport from 'passport';
-import 'models/db';
-import 'config';
-
-import * as userController from 'controllers/user';
-import * as challengeController from 'controllers/challenge';
-import * as authController from 'controllers/auth';
-import * as commentController from 'controllers/comment';
-import jwt from 'express-jwt';
-import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
-
-const jwtMidleware = jwt({
-	secret: 'JWT_SECRET',
-	userProperty: 'payload',
-	getToken: (req) => {
-		if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-			return req.headers.authorization.split(' ')[1];
-		}
-
-		const token = req.cookies.token;
-		if (token) return token;
-		return null;
-	}
-});
-
-/** MongoDB Setup */
-mongoose.Promise = require('bluebird');
-mongoose.connect(config.mongo.endpoint, {
-	server: {
-		socketOptions: { keepAlive: 1 }
-	}
-});
 
 const app = express();
-app.use(cookieParser());
 const server = new http.Server(app);
 
 const io = new SocketIo(server);
 io.path('/ws');
 
-app.use(session({
-	secret: 'socialsamurai',
-	resave: false,
-	saveUninitialized: false,
-	cookie: { maxAge: 60000 }
-}));
 app.disable('etag');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-
-// user routes
-app.get('/users', jwtMidleware, userController.userRetrieveList);
-app.get('/users/:userId', jwtMidleware, userController.userRetrieveOne);
-app.post('/users', jwtMidleware, userController.userCreate);
-app.put('/users/:userId', jwtMidleware, userController.userModify);
-app.delete('/users/:userId', jwtMidleware, userController.userDestroy);
-app.post('/users/:userId/levelup', jwtMidleware, userController.userLevelUp);
-
-// challenge routes
-app.get('/challenges', jwtMidleware, challengeController.challengeRetrieveList);
-app.get('/challenges/:level', jwtMidleware, challengeController.challengeRetrieveOne);
-app.post('/challenges', jwtMidleware, challengeController.challengeCreate);
-app.put('/challenges/:challengeId', jwtMidleware, challengeController.challengeModify);
-app.delete('/challenges/:challengeId', jwtMidleware, challengeController.challengeDestroy);
-
-// comments routes
-app.post('/challenges/:level/comments', jwtMidleware, commentController.commentCreate);
-app.post('/challenges/:level/comments/:commentId/comments', jwtMidleware, commentController.comment2ndCreate);
-
-
-// authentication routes
-app.post('/register', authController.register);
-app.post('/login', authController.login);
-app.get('/session', jwtMidleware, authController.session);
-app.get('/loadAuth', authController.loadAuth);
 
 const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);

@@ -1,49 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import VideoThumbnail from '../../components/VideoThumbnail/VideoThumbnail';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import {LinkContainer} from 'react-router-bootstrap';
+import {Link} from 'react-router';
+// import Grid from 'react-bootstrap/lib/Grid';
+// import Row from 'react-bootstrap/lib/Row';
+// import Col from 'react-bootstrap/lib/Col';
+// import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
-import { asyncConnect } from 'redux-async-connect';
-import { getChallenges } from 'redux/modules/challenge';
-import get from 'lodash/get';
+// import { asyncConnect } from 'redux-async-connect';
+// import get from 'lodash/get';
 
-@asyncConnect([{
-	promise: ({store: {dispatch}}) => {
-		return dispatch(getChallenges());
-	}
-}])
+// @asyncConnect([{
+// 	promise: ({store: {dispatch}}) => {
+// 	}
+// }])
 @connect((state) => ({
-	challenges: state.challenge.challenges,
-	level: get(state, 'session.data.user.level')
+	loggedIn: state.auth.loaded
 }))
 export default class Home extends Component {
 	static propTypes = {
-		challenges: PropTypes.array,
-		level: PropTypes.number
+		loggedIn: PropTypes.bool
 	};
 
 	render() {
 		const styles = require('./Home.scss');
+		const { loggedIn } = this.props;
+
 		return (
 			<div className={styles.home}>
 				<Helmet title="Social Samurai"/>
-				<h1 className={styles['homepage-title']}>My Roadmap</h1>
-				<Grid>
-					<Row>
-						{this.props.challenges.map(challenge =>
-							<Col key={challenge._id} xs={6} md={4}>
-								<LinkContainer to={`/challenges/${challenge.level}`}>
-									<VideoThumbnail src={challenge.thumbnailUrl}
-													description={challenge.title}
-													locked={challenge.level > this.props.level} />
-								</LinkContainer>
-							</Col>
-						)}
-					</Row>
-				</Grid>
+				{ !loggedIn ? (
+						<h1>
+							Please <Link to={`/login`}>Login</Link>
+						</h1>
+					) : (<Link to={`/documents`}>View Documents</Link>)
+				}
 			</div>
 		);
 	}

@@ -1,15 +1,13 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
-import get from 'lodash/get';
-import { isLoaded as isSessionLoaded, load as loadSession } from 'redux/modules/session';
+import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
 import {
 		App,
 		Home,
 		NotFound,
-		Challenge,
 		Login,
-		Register
+		Documents,
+		Document,
 	} from 'containers';
 import combineMiddlewaresGenerator from 'utils/combineMiddlewaresGenerator';
 
@@ -27,34 +25,8 @@ export default (store) => {
 			action.next();
 		};
 
-		if (!isAuthLoaded(_store.getState())) {
-			_store.dispatch(loadAuth())
-				.then(checkAuth)
-				.catch(checkAuth);
-		} else {
-			checkAuth();
-		}
+		checkAuth();
 	};
-
-	const checkUserLevel = (_store, nextState, action) => {
-		function checkLevel() {
-			const level = get(_store.getState(), 'session.data.user.level');
-			const nextLevel = parseInt(nextState.params.challengeId, 10);
-			if (level < nextLevel) {
-				action.replace('/');
-			}
-			action.next();
-		}
-
-		if (!isSessionLoaded(_store.getState())) {
-			_store.dispatch(loadSession())
-				.then(checkLevel)
-				.catch(checkLevel);
-		} else {
-			checkLevel();
-		}
-	};
-
 
 	const isLoggedIn = (_store, nextState, action) => {
 		const checkAuth = () => {
@@ -65,24 +37,30 @@ export default (store) => {
 			action.next();
 		};
 
-		if (!isAuthLoaded(_store.getState())) {
-			_store.dispatch(loadAuth())
-				.then(checkAuth)
-				.catch(checkAuth);
-		} else {
-			checkAuth();
-		}
+		checkAuth();
 	};
 
 	return (
 		<Route path="/" component={App}>
 			{ /* Home (main) route */ }
-			<IndexRoute component={Home} onEnter={combine([requireLogin])} />
-			<Route path="register" component={Register} onEnter={combine([isLoggedIn])} />
-			<Route path="login" component={Login} onEnter={combine([isLoggedIn])} />
+			<IndexRoute
+				// onEnter={combine([requireLogin])}
+				component={Home} />
 
-			{ /* Routes requiring login */ }
-			<Route path="challenges/:challengeId" component={Challenge} onEnter={combine([requireLogin, checkUserLevel])} />
+			<Route
+				path="/login"
+				onEnter={combine([isLoggedIn])}
+				component={Login} />
+
+			<Route
+				path="/documents"
+				onEnter={combine([requireLogin])}
+				component={Documents} />
+
+			<Route
+				path="/documents/:docId"
+				onEnter={combine([requireLogin])}
+				component={Document} />
 
 			{ /* Catch all route */ }
 			<Route path="*" component={NotFound} status={404} />

@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {reduxForm, Field} from 'redux-form';
-import {Link} from 'react-router';
-import {login as _login, logout as _logout} from 'redux/modules/auth';
+// import {Link} from 'react-router';
+import {login as _login} from 'redux/modules/auth';
 import {browserHistory} from 'react-router';
 
 @reduxForm({
@@ -14,7 +14,6 @@ import {browserHistory} from 'react-router';
 	}),
 	{
 		login: _login,
-		logout: _logout
 	}
 )
 export default class LoginForm extends Component {
@@ -24,7 +23,6 @@ export default class LoginForm extends Component {
 		submitting: PropTypes.bool,
 		fields: PropTypes.object,
 		login: PropTypes.func,
-		logout: PropTypes.func,
 		form: PropTypes.string,
 		loginError: PropTypes.object
 	};
@@ -43,15 +41,13 @@ export default class LoginForm extends Component {
 			form: formName,
 		} = this.props;
 
-		const styles = require('./LoginForm.scss');
-
 		return (
 			<form onSubmit={handleSubmit(this.handleSubmit)}>
 				<div className="form-group">
-					<label>Email</label>
+					<label>Username</label>
 					<div>
-						<Field className="form-control" name="email"
-							component="input" type="email" placeholder="Email" />
+						<Field className="form-control" name="username"
+							component="input" type="text" placeholder="username" />
 					</div>
 				</div>
 				<div className="form-group">
@@ -61,11 +57,8 @@ export default class LoginForm extends Component {
 							component="input" type="password" placeholder="Password" />
 					</div>
 				</div>
-								{this.props.loginError &&
-								<p className={styles['error-message']}>{this.props.loginError.message}</p>}
-				<button className="button" disabled={pristine || submitting}
+				<button className="btn btn-success" disabled={pristine || submitting}
 						type="submit">{formName}</button>
-				<Link className="button m-l-10" to="/register">Register</Link>
 			</form>
 		);
 	}

@@ -1,14 +1,11 @@
 // import config from '../../config';
-const LOAD = 'social-samurai/auth/LOAD';
-const LOAD_SUCCESS = 'social-samurai/auth/LOAD_SUCCESS';
-const LOAD_FAIL = 'social-samurai/auth/LOAD_FAIL';
-const LOGIN = 'social-samurai/auth/LOGIN';
-const LOGIN_SUCCESS = 'social-samurai/auth/LOGIN_SUCCESS';
-const LOGIN_FAIL = 'social-samurai/auth/LOGIN_FAIL';
-const LOGOUT = 'social-samurai/auth/LOGOUT';
-const REGISTER = 'social-samurai/auth/REGISTER';
-const REGISTER_SUCCESS = 'social-samurai/auth/REGISTER_SUCCESS';
-const REGISTER_FAIL = 'social-samurai/auth/REGISTER_FAIL';
+const LOAD = 'ssh-homework/auth/LOAD';
+const LOAD_SUCCESS = 'ssh-homework/auth/LOAD_SUCCESS';
+const LOAD_FAIL = 'ssh-homework/auth/LOAD_FAIL';
+const LOGIN = 'ssh-homework/auth/LOGIN';
+const LOGIN_SUCCESS = 'ssh-homework/auth/LOGIN_SUCCESS';
+const LOGIN_FAIL = 'ssh-homework/auth/LOGIN_FAIL';
+const LOGOUT = 'ssh-homework/auth/LOGOUT';
 
 const initialState = {
 	loaded: false
@@ -60,23 +57,6 @@ export default function reducer(state = initialState, action = {}) {
 				data: null,
 				loaded: false
 			};
-		case REGISTER:
-			return {
-				...state,
-				registeringIn: true
-			};
-		case REGISTER_SUCCESS:
-			return {
-				...state,
-				data: action.result,
-				loaded: true
-			};
-		case REGISTER_FAIL:
-			return {
-				...state,
-				registeringOut: false,
-				registerError: action.error
-			};
 		default:
 			return state;
 	}
@@ -93,20 +73,11 @@ export function load() {
 	};
 }
 
-export function login({ email, password }) {
+export function login({ username, password }) {
 	return {
 		types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
 		promise: (client) => client.post('/login', {
-			data: { email, password }
-		})
-	};
-}
-
-export function register({ email, password, name }) {
-	return {
-		types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAIL],
-		promise: (client) => client.post('/register', {
-			data: { email, password, name }
+			data: { username, password }
 		})
 	};
 }
